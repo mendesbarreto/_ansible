@@ -3,5 +3,4 @@
   hosts: all
   roles:
     - common
-    - { role: macos, when: ansible_os_family == 'Darwin' }
-    - { role: linux, when: ansible_os_family == 'Linux' }
+    - { role: linux, when: ansible_os_family == 'Archlinux' } # Need to found how to rote when the ansible_os_family is Linux
