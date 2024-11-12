@@ -1,0 +1,24 @@
+---
+common_packages:
+  - ansible
+  - btop
+  - cmake
+  - fd
+  - go
+  - helm
+  - htop
+  - jq
+  - lazygit
+  - pnpm
+  - ripgrep
+  - rust
+  - sshpass
+  - terraform
+  - terragrunt
+  - tmux
+  - wget
+  - xclip
+  - yarn
+  - zbar
+  - zsh
+  - zsh-syntax-highlighting

@@ -1,0 +1,12 @@
+---
+- name: Add Homebrew Taps
+  homebrew_tap:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ brew_taps }}"
+
+- name: Install Homebrew Packages
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ brew_packages + common_packages }}"

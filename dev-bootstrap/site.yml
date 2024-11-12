@@ -1,0 +1,7 @@
+---
+- name: Bootstrap dev machine
+  hosts: all
+  roles:
+    - common
+    - { role: macos, when: ansible_os_family == 'Darwin' }
+    - { role: linux, when: ansible_os_family == 'Linux' }

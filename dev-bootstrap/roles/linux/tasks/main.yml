@@ -1,0 +1,10 @@
+---
+- name: Install packages on Debian-based
+  apt:
+    name: "{{ debian_packages }}"
+    state: present
+  when: ansible_os_family == "Debian"
+
+- name: Include Arch Linux tasks
+  include_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
