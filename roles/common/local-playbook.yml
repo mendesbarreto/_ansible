@@ -1,0 +1,17 @@
+---
+- name: local playbook
+  hosts: local_servers
+  remote_user: mendesbarreto
+  vars:
+    ansible_ssh_pass: "{{ lookup('env', 'MINIBEAST_SSH_PASS') }}"
+  tasks:
+    - name: get disk space
+      command: df -h
+      register: disk_space
+
+    - name: print disk space
+      debug:
+        var: disk_space.stdout_lines
+
+    - name: pwd
+      command: pwd

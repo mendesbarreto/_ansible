@@ -1,0 +1,6 @@
+local_servers:
+  hosts:
+    minibeast:
+      ansible_host: minibeast
+      ansible_user: "{{ lookup('env', 'MINIBEAST_SSH_USER') }}"
+      ansible_ssh_pass: "{{ lookup('env', 'MINIBEAST_SSH_PASS') }}"
