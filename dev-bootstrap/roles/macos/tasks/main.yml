@@ -1,12 +1,29 @@
 ---
-- name: Add Homebrew Taps
+- name: Add standard Homebrew Taps
   homebrew_tap:
     name: "{{ item }}"
     state: present
-  loop: "{{ brew_taps }}"
+  loop: "{{ brew_taps | reject('search', 'cross-language-cpp/brew') | list }}"
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags: [homebrew, taps]
+
+- name: Add cross-language-cpp/brew tap with custom URL
+  command: brew tap cross-language-cpp/brew git@github.com:cross-language-cpp/brew.git
+  register: tap_result
+  changed_when: tap_result.stdout != ""
+  failed_when: tap_result.rc != 0 and "Already tapped" not in tap_result.stderr
+  tags: [homebrew, taps]
 
 - name: Install Homebrew Packages
   homebrew:
     name: "{{ item }}"
     state: present
   loop: "{{ brew_packages + common_packages }}"
+  tags: [homebrew, packages]
+
+- name: Install Homebrew Casks
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ brew_casks }}"
+  tags: [homebrew, casks]

@@ -1,0 +1,10 @@
+---
+# Include Bob (Neovim version manager) configuration
+- name: Configure Bob (Neovim version manager)
+  import_tasks: neovim/bob.yml
+  tags: [neovim, bob]
+
+# Include tmux configuration
+- name: Configure tmux
+  import_tasks: tmux/main.yml
+  tags: tmux

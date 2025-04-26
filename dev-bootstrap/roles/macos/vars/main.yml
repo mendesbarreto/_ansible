@@ -1,18 +1,17 @@
 ---
 brew_taps:
   - bufbuild/buf
-  - cross-language-cpp/brew
   - grishka/grishka
-  - homebrew/cask-fonts
-  - homebrew/cask-versions
-  - homebrew/services
   - jason0x43/neovim-nightly
   - koekeishiya/formulae
   - mongodb/brew
   - ngrok/ngrok
-  - nlohmann/json
   - semaphoreci/tap
   - sourcegraph/src-cli
+
+brew_casks:
+  - nikitabobko/tap/aerospace # Move this from your task to the variable
+  - gpg-suite # Add GPG Suite
 
 brew_packages:
   - abseil
@@ -158,7 +157,6 @@ brew_packages:
   - metis
   - minizip
   - mongodb-community
-  - mongodb-community@6.0
   - mongodb-database-tools
   - mongosh
   - mono
@@ -170,8 +168,6 @@ brew_packages:
   - ncurses
   - netcdf
   - nettle
-  - nlohmann-json
-  - nlohmann_json
   - node
   - numpy
   - nvm
@@ -179,13 +175,11 @@ brew_packages:
   - openblas
   - opencore-amr
   - opencv
-  - opencv@3
   - openexr
   - openjdk
   - openjdk@11
   - openjdk@17
   - openjpeg
-  - openssl@1.1
   - openssl@3
   - openvino
   - opus
@@ -203,7 +197,6 @@ brew_packages:
   - pycparser
   - pyenv
   - pyqt
-  - python-certifi
   - python-packaging
   - python@3.11
   - python@3.12
@@ -259,3 +252,5 @@ brew_packages:
   - zoxide
   - zsh-autosuggestions
   - zstd
+  - gnupg
+  - lazygit

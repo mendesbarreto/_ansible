@@ -1,0 +1,49 @@
+---
+- name: Check if Bob is already installed
+  ansible.builtin.command: which bob
+  register: bob_check
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+
+- name: Install Bob (Neovim version manager) via Cargo
+  ansible.builtin.command: cargo install bob-nvim
+  register: bob_install
+  changed_when: bob_install.rc == 0
+  failed_when: bob_install.rc != 0 and "already exists" not in bob_install.stderr
+  when: bob_check.rc != 0
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+
+- name: Update Bob if already installed
+  ansible.builtin.command: cargo install bob-nvim
+  register: bob_update
+  changed_when: "'Replacing' in bob_update.stdout"
+  failed_when: bob_update.rc != 0 and "already exists" not in bob_update.stderr
+  when: bob_check.rc == 0
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+
+- name: Create Bob configuration directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/bob"
+    state: directory
+    mode: '0755'
+
+- name: Install latest stable Neovim with Bob
+  ansible.builtin.command: bob install nightly
+  register: bob_nvim_install
+  changed_when: bob_nvim_install.rc == 0
+  failed_when: bob_nvim_install.rc != 0 and "already installed" not in bob_nvim_install.stderr
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
+  
+- name: Use the installed Neovim version
+  ansible.builtin.command: bob use nightly
+  register: bob_nvim_use
+  changed_when: bob_nvim_use.rc == 0
+  failed_when: bob_nvim_use.rc != 0
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"

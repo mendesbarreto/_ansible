@@ -1,0 +1,40 @@
+---
+- name: Ensure Git directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/Git"
+    state: directory
+    mode: '0755'
+
+- name: Ensure tmux plugins directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.tmux/plugins"
+    state: directory
+    mode: '0755'
+
+- name: Ensure tmux config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/tmux"
+    state: directory
+    mode: '0755'
+
+- name: Clone tmux plugin manager (tpm)
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+    clone: yes
+    update: yes
+
+- name: Clone gpakosz tmux configuration
+  ansible.builtin.git:
+    repo: https://github.com/gpakosz/.tmux.git
+    dest: "{{ ansible_env.HOME }}/Git/tmux"
+    single_branch: yes
+    clone: yes
+    update: yes
+
+- name: Create symlink for tmux configuration
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/Git/tmux/.tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.config/tmux/tmux.conf"
+    state: link
+    force: yes

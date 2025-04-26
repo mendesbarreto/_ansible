@@ -22,3 +22,10 @@ common_packages:
   - zbar
   - zsh
   - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - rust
+  - cargo
+  - hub
+  - direnv
+  - fzf
+  - gnupg
